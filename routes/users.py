@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from config.db import connection
 from schemas.user import userEntity, usersEntity
 from models.user import User
+from passlib.hash import sha256_crypt
 import re
 
 users = APIRouter()
@@ -25,6 +26,8 @@ def create_user(user: User):
     username = new_user["username"]
     password = new_user["password"]
     email = new_user["email"]
+
+    new_user["password"] = sha256_crypt.encrypt(password)
 
     if len(username) == 0 or len(password) == 0 or len(email) == 0:
         raise HTTPException(

@@ -40,6 +40,10 @@ def create_user(user: User):
         raise HTTPException(
             status_code=400, detail="Correo electronico incorrecto")
 
+    if not validate_username(username):
+        raise HTTPException(
+            status_code=400, detail="Nombre de usuario incorrecto")
+
     user_created = connection.signai_app.users.insert_one(new_user)
 
     if user_created:
@@ -56,6 +60,14 @@ def create_user(user: User):
 def validate_email(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     if re.match(pattern, email):
+        return True
+    else:
+        return False
+
+
+def validate_username(username):
+    pattern = r'^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$'
+    if re.match(pattern, username):
         return True
     else:
         return False

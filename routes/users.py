@@ -52,7 +52,8 @@ def create_user(user: User):
     if user_created:
         return JSONResponse(
             content={"message": "Usuario Creado",
-                     "data": str(user_created.inserted_id)},
+                     "data": str(user_created.inserted_id),
+                     "codeStatus": 201},
             status_code=201
         )
 

@@ -1,11 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
-from config.db import connection
-from schemas.user import userEntity, usersEntity
 from models.user import User
-from passlib.hash import sha256_crypt
-from utils.validations import validate_email, validate_username
-from utils.response import Response
 from services.user_services import service_find_all_users, service_create_user
 
 users = APIRouter()
